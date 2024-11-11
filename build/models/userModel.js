@@ -31,8 +31,29 @@ export function findUserById(id) {
 }
 export function deleteUserById(id) {
     return __awaiter(this, void 0, void 0, function* () {
-        const queryString = `DELETE FROM "user" WHERE "id" = ${id}`;
-        const result = yield pool.query(queryString);
-        return result.rows;
+        try {
+            const queryString = `DELETE FROM "user" WHERE "id" = ${id}`;
+            const result = yield pool.query(queryString);
+            if (result.rowCount && result.rowCount > 0) {
+                return {
+                    success: true,
+                    message: 'Usuario eliminado correctamente',
+                    rowsAffected: result.rowCount
+                };
+            }
+            else {
+                return {
+                    success: false,
+                    message: 'No se encontró el usuario',
+                    rowsAffected: 0
+                };
+            }
+        }
+        catch (error) {
+            return {
+                success: false,
+                message: `Error al eliminar usuario: ${error.message}`
+            };
+        }
     });
 }
