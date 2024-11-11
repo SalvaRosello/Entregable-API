@@ -26,6 +26,11 @@ userRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* (
 }));
 userRouter.delete("/:id", validateNumericParams, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield deleteUser(req.params.id);
-    res.send(result);
+    let statusCode = 200;
+    if (!result.success && result.rowsAffected == 0)
+        statusCode = 404;
+    if (!result.success && !("rowsAffected" in result))
+        statusCode = 500;
+    res.status(statusCode).json({ message: result.message });
 }));
 export default userRouter;
