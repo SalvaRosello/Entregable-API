@@ -14,5 +14,15 @@ staticRouter.get('/usersManagement', (req: Express.Request, res: Express.Respons
     res.sendFile(targetFilePath);
 });
 
+staticRouter.get('/newBook', (req: Express.Request, res: Express.Response) => {
+    const targetFilePath = path.join(publicPath, "/newBook.html");
+    res.sendFile(targetFilePath);
+});
+
+staticRouter.get('/booksManagement', (req: Express.Request, res: Express.Response) => {
+    const targetFilePath = path.join(publicPath, "/booksManagement.html");
+    res.sendFile(targetFilePath);
+});
+
 export {staticRouter} ;
 
