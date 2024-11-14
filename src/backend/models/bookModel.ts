@@ -4,7 +4,7 @@ import { DeleteResult } from "../types/DeleteResult.js";
 
 
 export async function saveNewBook(book: Book): Promise<any> {
-    const queryString = `INSERT INTO "books" ("bookName", "authorName", "authorFirstSurname", "pages", "publisher") VALUES ('${book.bookName}', '${book.authorName}', '${book.authorFirstSurname}', '${book.pages}', '${book.publisher}')`;
+    const queryString = `INSERT INTO "book" ("bookName", "authorName", "authorFirstSurname", "pages", "publisher") VALUES ('${book.bookName}', '${book.authorName}', '${book.authorFirstSurname}', '${book.pages}', '${book.publisher}')`;
     const result = await pool.query(queryString);
     return result.rows;
 }
@@ -46,3 +46,8 @@ export async function deleteBookById(id: string): Promise<DeleteResult> {
         };
     }
 }   
+export async function updateBook(book:Book):Promise<any>{
+    const queryString = `UPDATE "book" SET "bookName" = '${book.bookName}', "authorName" = '${book.authorName}', "authorFirstSurname" = '${book.authorFirstSurname}', "pages" = '${book.pages}', "publisher" = '${book.publisher}' WHERE "id" = ${book.id}`;
+    const result = await pool.query(queryString);
+    return result.rows;
+}

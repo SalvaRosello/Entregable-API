@@ -46,3 +46,8 @@ export async function deleteUserById(id: string): Promise<DeleteResult> {
         };
     }
 }   
+export async function updateUser(user:User):Promise<any>{
+    const queryString = `UPDATE "user" SET "userName" = '${user.userName}', "name" = '${user.name}', "first_surname" = '${user.first_surname}', "password" = '${user.password}', "email" = '${user.email}' WHERE "id" = ${user.id}`;
+    const result = await pool.query(queryString);
+    return result.rows;
+}

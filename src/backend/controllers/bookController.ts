@@ -32,3 +32,8 @@ export async function deleteBook(id:string):Promise<DeleteResult>{
     const result = await deleteBookById(id);
     return result;
 }
+
+export async function updateBook(book:Book):Promise<any>{
+    const result = await updateBook(book);
+    return result;
+}

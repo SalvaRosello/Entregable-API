@@ -1,7 +1,7 @@
 import Express from 'express';
 import { validateNumericParams } from '../middlewares/validateNumericParams.js';
 import { DeleteResult } from '../types/DeleteResult.js';
-import { deleteBook, getAllBooks, getBook, newBook } from '../controllers/bookController.js';
+import { deleteBook, getAllBooks, getBook, newBook, updateBook } from '../controllers/bookController.js';
 import { Book } from '../types/Book.js';
 
 const bookRouter = Express.Router();
@@ -31,3 +31,9 @@ bookRouter.delete("/:id", validateNumericParams, async (req: Express.Request, re
 });
 
 export default bookRouter;
+
+bookRouter.put("/:id", validateNumericParams, async (req: Express.Request, res: Express.Response) => {
+    const book: Book = {id: req.params.id, bookName: req.body.bookName, authorName: req.body.authorName, authorFirstSurname: req.body.authorFirstSurname, pages: req.body.pages, publisher: req.body.publisher};
+    const result = await updateBook(book);
+    res.send(result);
+});

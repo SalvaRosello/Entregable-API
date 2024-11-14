@@ -7,7 +7,7 @@ export async function newUser(user: User):Promise<string>{
     try {
         const result = await saveNewUser(user);
         return result;
-    } catch (error:any){//TODO: quitar el any
+    } catch (error:any){
         if (error.code === "23505") {
             const columnMatch = error.detail.match(/Key \((.*?)\)=/);
             const columnName = columnMatch ? columnMatch[1] : 'campo';
@@ -30,5 +30,10 @@ export async function getUser(id:string):Promise<string>{
 
 export async function deleteUser(id:string):Promise<DeleteResult>{
     const result = await deleteUserById(id);
+    return result;
+}
+
+export async function updateUser(user:User):Promise<any>{
+    const result = await updateUser(user);
     return result;
 }
